@@ -22,7 +22,7 @@
                     {@render props.icon()}
                 {:else}
                     <iconify-icon
-                        class={["text-secondary-700-400", props.iconClass]}
+                        class={["text-secondary-800-300", props.iconClass]}
                         icon="ion:help-circle-outline"
                     ></iconify-icon>
                 {/if}
