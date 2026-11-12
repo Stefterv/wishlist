@@ -1,5 +1,5 @@
 <script lang="ts">
-    import logo from "$lib/assets/logo.png";
+    import logo from "$lib/assets/logo.svg";
     import { page } from "$app/state";
     import NavMenu from "./NavMenu/NavMenu.svelte";
     import { isInstalled } from "$lib/stores/is-installed";
