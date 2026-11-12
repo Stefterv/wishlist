@@ -1,4 +1,8 @@
 @utility btn {
+    /* Bold, uppercase labels in the style of typedesignclass.com */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     @variant active {
         scale: 95%;
     }
