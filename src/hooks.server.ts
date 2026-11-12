@@ -1,6 +1,6 @@
 import type { RouteId } from "$app/types";
 import { env } from "$env/dynamic/private";
-import { getClosestAvailableLocaleFromHeader, getClosestAvailablePreferredLanguage, type Lang } from "$lib/i18n";
+import { getClosestAvailableLocale, type Lang } from "$lib/i18n";
 import {
     deleteSessionTokenCookie,
     sessionCookieName,
@@ -12,7 +12,8 @@ import { loadLocale } from "$lib/server/validations";
 import type { Handle, HandleServerError } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
-    let lang = getClosestAvailableLocaleFromHeader(event.request.headers.get("accept-language"));
+    // Always use Dutch, regardless of browser or user preference
+    const lang = getClosestAvailableLocale(["nl"]);
 
     const sessionToken = event.cookies.get(sessionCookieName);
     if (!sessionToken) {
@@ -28,10 +29,6 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
 
     const { session, user, fresh } = await validateSessionToken(sessionToken);
-    if (user?.preferredLanguage) {
-        lang = getClosestAvailablePreferredLanguage(user.preferredLanguage) ?? lang;
-    }
-
     await loadLocale(lang.code);
     if (session === null) {
         deleteSessionTokenCookie(event.cookies);
